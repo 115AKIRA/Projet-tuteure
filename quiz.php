@@ -5,7 +5,7 @@ session_start();
 $_SESSION['url'] ='quiz.php';
 
 require('connexion.php');
-$req = $objPdo->prepare('SELECT id_type_moyen, libelle_moyen, specificite, empreinteCarboneParKm FROM type_moyen ORDER BY id_type_moyen');
+$req = $objPdo->prepare('SELECT id_type_moyen, libelle_moyen, specificite, empreinteCarboneParKm FROM Type-moyen ORDER BY id_type_moyen');
 $req->execute();
 $data = $req->fetchAll(PDO::FETCH_OBJ);
 
