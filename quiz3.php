@@ -6,6 +6,7 @@ $_SESSION['url'] ='quiz3.php';
 
 if (isset($_POST['btn_valider3'])) {
     $erreur = array();
+    $v_nbTele = trim(htmlentities($_POST['nbTele']));
     $v_nbOrdiPortable = trim(htmlentities($_POST['nbOrdiPortable']));
     $v_nbOrdiFixe = trim(htmlentities($_POST['nbOrdiFixe']));
     $v_nbImprimante = trim(htmlentities($_POST['nbImprimante']));
@@ -13,7 +14,11 @@ if (isset($_POST['btn_valider3'])) {
     $v_nbRouteur = trim(htmlentities($_POST['nbRouteur']));
     $v_nbAspirateur = trim(htmlentities($_POST['nbAspirateur']));
     $v_nbTablette = trim(htmlentities($_POST['nbTablette']));
+    $v_nbPhone = trim(htmlentities($_POST['nbPhone']));
 
+    if(!isset($v_nbTele) or strlen($v_nbTele)==0) {
+        $erreur['nbTele'] = 'Saisir un nombre de téléviseurs';
+    }
     if(!isset($v_nbOrdiPortable) or strlen($v_nbOrdiPortable)==0) {
         $erreur['nbOrdiPortable'] = 'Saisir un nombre d\'ordinateur portable';
     }
@@ -35,8 +40,13 @@ if (isset($_POST['btn_valider3'])) {
     if(!isset($v_nbTablette) or strlen($v_nbTablette)==0) {
         $erreur['nbTablette'] = 'Saisir un nombre de tablette';
     }
+    if(!isset($v_nbPhone) or strlen($v_nbPhone)==0) {
+        $erreur['nbPhone'] = 'Saisir un nombre de smartphones';
+    }
     echo 'nbOrdiPortable : ' . $v_nbOrdiPortable . ' nbOrdiFixe : ' . $v_nbOrdiFixe . ' nbImprimante : ' . $v_nbImprimante. ' nbConsole : ' . $v_nbConsole;
-    echo ' nbRouteur : ' . $v_nbRouteur . ' nbAspirateur : ' . $v_nbAspirateur . ' nbTablette : ' . $v_nbTablette; 
+    echo ' nbRouteur : ' . $v_nbRouteur . ' nbAspirateur : ' . $v_nbAspirateur . ' nbTablette : ' . $v_nbTablette;
+    ?><br><?php
+    echo 'Consommation appareil electrique : '.((($v_nbTele*54.1)+($v_nbOrdiPortable*43)+($v_nbTablette*23.2)+($v_nbPhone*19.7)+($v_nbImprimante*41.1)+($v_nbConsole*21.1)+($v_nbAspirateur*7.3)+($v_nbRouteur*2.2)+($v_nbOrdiFixe*34))/12).' kgCO2eq';
 }
 ?>
 
@@ -58,6 +68,13 @@ if (isset($_POST['btn_valider3'])) {
     <form name="transport" action="" method="post" class="form">
  
         <!-- Details -->
+
+        <div class="form-control">
+            <label for="name" id="label-name">Nombre de téléviseurs</label>
+            <!-- Input Type Text -->
+            <input type="text" id="nbTele" name="nbTele" placeholder="Saisir un nombre" />
+        </div>
+
         <div class="form-control">
             <label for="name" id="label-name">Nombre d'ordinateur portable</label>
             <!-- Input Type Text -->
@@ -98,6 +115,12 @@ if (isset($_POST['btn_valider3'])) {
             <label for="age" id="label-age">Nombre de tablette</label>
         <!-- Input Type Text -->
             <input type="text" id="nbTablette" name="nbTablette" placeholder="Saisir un nombre" />
+        </div>
+
+        <div class="form-control">
+            <label for="age" id="label-age">Nombre de smartphones</label>
+        <!-- Input Type Text -->
+            <input type="text" id="nbPhone" name="nbPhone" placeholder="Saisir un nombre" />
         </div>
   
         

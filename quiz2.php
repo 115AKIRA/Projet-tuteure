@@ -39,7 +39,11 @@ if (isset($_POST['btn_valider'])) {
     if(!isset($v_microonde) or strlen($v_microonde)==0) {
         $erreur['distance'] = 'Saisir un nombre';
     }
-    echo 'Distance : ' . $v_frigo . ' Moyen de transport : ' . $v_congelo . ' nbTrajets : ' . $v_fours. ' Type transport : ' . $v_sechelinge . $v_sechelinge . $v_lavelinge . $v_plaquechauffante . $v_lavevaisselle . $v_microonde; 
+    echo 'Frigo : ' . $v_frigo . ' Congelo : ' . $v_congelo . ' Fours : ' . $v_fours. ' Seche Linge : ' . $v_sechelinge .' Lave Linge : '. $v_lavelinge .' Plaques Chauffantes : '. $v_plaquechauffante .' Lave-vaisselle : '. $v_lavevaisselle .' Micro-ondes :'. $v_microonde;
+    ?>
+    <br>
+    <?php
+    echo 'Consommation electromenage : '.($v_frigo*17)+($v_plaquechauffante*31)+($v_lavevaisselle*47)+($v_lavelinge*49)+($v_sechelinge*45)+($v_frigo*35)+($v_congelo*39)+($v_microonde*15).' kgCO2eq'; 
 }
 ?>
 <html>

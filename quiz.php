@@ -2,7 +2,12 @@
 
 session_start();
  
-$_SESSION['url'] ='quiz.php';  
+$_SESSION['url'] ='quiz.php';
+
+require('connexion.php');
+$req = $objPdo->prepare('SELECT id_type_moyen, libelle_moyen, specificite, empreinteCarboneParKm FROM type_moyen ORDER BY id_type_moyen');
+$req->execute();
+$data = $req->fetchAll(PDO::FETCH_OBJ);
 
 if (isset($_POST['btn_valider'])) {
     $erreur = array();
@@ -32,7 +37,17 @@ if (isset($_POST['btn_valider'])) {
     if(!isset($v_typeTransport) or strlen($v_typeTransport)==0) {
         $erreur['typeTransport'] = 'Choisir un type de transport';
     }
-    echo 'Distance : ' . $v_distance . ' Moyen de transport : ' . $v_moyenTransport . ' nbTrajets : ' . $v_nbTrajet. ' Type transport : ' . $v_typeTransport; 
+
+    require('connexion.php');
+    $req2 = $objPdo->prepare('SELECT empreinteCarboneParKm FROM type_moyen WHERE id_type_moyen = ? ');
+    $req2->execute(array($v_typeTransport));
+    $carb = $req2->fetchAll(PDO::FETCH_OBJ);
+    
+    echo 'Distance : ' . $v_distance . ' Moyen de transport : ' . $v_moyenTransport . ' nbTrajets : ' . $v_nbTrajet. ' Type transport : ' . $v_typeTransport;
+    ?>
+    <br>
+    <?php 
+    echo 'Consommation transport par mois : '.floatval($v_distance)*floatval($carb)*floatval($v_nbTrajet)*floatval(4).' kgCO2eq';
 }
 ?>
 
@@ -78,20 +93,11 @@ if (isset($_POST['btn_valider'])) {
              
             <!-- Dropdown options -->
             <select name="typeTransport" id="typeTransport">
-                <option value="Marche">Marche</option>
-                <option value="Vélo mécanique">Vélo mécanique</option>
-                <option value="Vélo électrique">Vélo électrique</option>
-                <option value="Voiture diesel">Voiture diesel</option>
-                <option value="Voiture essence">Voiture essence</option>
-                <option value="Voiture électrique">Voiture électrique</option>
-                <option value="Voiture hybride">Voiture hybride</option>
-                <option value="Voiture GNV">Voiture GNV</option>
-                <option value="Voiture GPL">Voiture GPL</option>
-                <option value="Train TER">Train TER</option>
-                <option value="Train Intercité">Train Intercité</option>
-                <option value="TGV INOUI">TGV INOUI</option>
-                <option value="TGV OUIGO">TGV OUIGO</option>
-                <option value="TGV LYRIA">TGV LYRIA</option>
+                <?php
+                    foreach($data as $moyen) {
+                        echo '<option value= " '.$moyen->id_type_moyen.'" > '.$moyen->libelle_moyen.' </option>';
+                    }
+                ?>
             </select>
         </div>
     <!-- fin 1er questionnaire-->  
