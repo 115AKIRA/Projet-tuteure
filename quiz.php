@@ -3,28 +3,23 @@
 session_start();
  
 $_SESSION['url'] ='quiz.php';
+//$idcompte = $_SESSION['id']; 
+$idcompte = 1;
 
-require('connexion.php');
-$req = $objPdo->prepare('SELECT id_type_moyen, libelle_moyen, specificite, empreinteCarboneParKm FROM Type-moyen ORDER BY id_type_moyen');
-$req->execute();
-$data = $req->fetchAll(PDO::FETCH_OBJ);
+require('fonction.php');
+$typemoy = getTypeMoyens();
 
 if (isset($_POST['btn_valider'])) {
     $erreur = array();
     $v_distance = trim(htmlentities($_POST['distance']));
-    $v_moyenTransport = trim(htmlentities($_POST['moyenTransport']));
     $v_nbTrajet = trim(htmlentities($_POST['nbTrajets']));
     $v_typeTransport = trim(htmlentities($_POST['typeTransport']));
 
     if(!isset($v_distance) or strlen($v_distance)==0) {
-        $erreur['distance'] = 'Saisir une distance';
+        $erreur['distance'] = 'Veuillez saisir une distance valable';
     }
     if (!is_numeric($v_distance)) {
         $erreur['distance'] = 'Saisir uniquement des chiffres';
-    }
-
-    if(!isset($v_moyenTransport) or strlen($v_moyenTransport)==0) {
-        $erreur['moyenTransport'] = 'Saisir un moyen de transport';
     }
    
     if(!isset($v_nbTrajet) or strlen($v_nbTrajet)==0) {
@@ -38,16 +33,21 @@ if (isset($_POST['btn_valider'])) {
         $erreur['typeTransport'] = 'Choisir un type de transport';
     }
 
-    require('connexion.php');
-    $req2 = $objPdo->prepare('SELECT empreinteCarboneParKm FROM type_moyen WHERE id_type_moyen = ? ');
-    $req2->execute(array($v_typeTransport));
-    $carb = $req2->fetchAll(PDO::FETCH_OBJ);
+    if (count($erreur) > 0 ) {
+        foreach($erreur as $err) {
+            echo $err.' ; ';
+        }
+    } else {
+
+    $carb = getEmpreinteCarbParKm($v_typeTransport);
     
-    echo 'Distance : ' . $v_distance . ' Moyen de transport : ' . $v_moyenTransport . ' nbTrajets : ' . $v_nbTrajet. ' Type transport : ' . $v_typeTransport;
+    echo 'Distance : ' . $v_distance .  ' nbTrajets : ' . $v_nbTrajet. ' Type transport : ' . $v_typeTransport;
     ?>
     <br>
     <?php 
     echo 'Consommation transport par mois : '.floatval($v_distance)*floatval($carb)*floatval($v_nbTrajet)*floatval(4).' kgCO2eq';
+    $insert = setConsomTransport($idcompte, $v_distance, $v_nbTrajet, $v_typeTransport);
+    }
 }
 ?>
 
@@ -76,12 +76,6 @@ if (isset($_POST['btn_valider'])) {
         </div>
   
         <div class="form-control">
-            <label for="email" id="label-email">Quel moyen de transport utilisez-vous?</label>
-            <!-- Input Type Email-->
-            <input type="text" id="moyenTransport" name="moyenTransport" placeholder="Saisir le moyen de transport" />
-        </div>
-  
-        <div class="form-control">
             <label for="age" id="label-age">Le nombre de fois que vous vous rendez au travail par semaine?</label>
         <!-- Input Type Text -->
             <input type="text" id="nbTrajets" name="nbTrajets" placeholder="Saisir le nombre de trajets par semaine" />
@@ -94,7 +88,7 @@ if (isset($_POST['btn_valider'])) {
             <!-- Dropdown options -->
             <select name="typeTransport" id="typeTransport">
                 <?php
-                    foreach($data as $moyen) {
+                    foreach($typemoy as $moyen) {
                         echo '<option value= " '.$moyen->id_type_moyen.'" > '.$moyen->libelle_moyen.' </option>';
                     }
                 ?>
