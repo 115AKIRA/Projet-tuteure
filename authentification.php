@@ -20,11 +20,7 @@ if (isset($_POST['btn_login'])) {
 
     if (count($erreur)==0) {
         require_once('connexion.php');
-        if (strpos($v_user, '@')) {
-            $req = $objPdo->prepare("SELECT * FROM compte WHERE email = \"$v_user\" AND pass = \"$v_pass\" ");
-            $req->execute();
-        } else {
-            $req = $objPdo->prepare("SELECT * FROM compte WHERE tel = \"$v_user\" AND pass = \"$v_pass\" ");
+            $req = $objPdo->prepare("SELECT * FROM Compte WHERE email = \"$v_user\" AND pass = \"$v_pass\" ");
             $req->execute();
         }
 
@@ -39,13 +35,11 @@ if (isset($_POST['btn_login'])) {
                $_SESSION['telephone'] = $row['tel'];
                $_SESSION['email'] = $row['email'];
                $_SESSION['password'] = $row['pass'];
-               /*header("location: acceuil.php");*/
+               header("location: acceuil.php");
 
            }
         }
     }
-
-}
 /*
 if (isset($_POST['btn_creer'])) {
     header("location: creer.php");
