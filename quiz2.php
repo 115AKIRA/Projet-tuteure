@@ -43,7 +43,7 @@ if (isset($_POST['btn_valider'])) {
     ?>
     <br>
     <?php
-    echo 'Consommation electromenage : '.($v_frigo*17)+($v_plaquechauffante*31)+($v_lavevaisselle*47)+($v_lavelinge*49)+($v_sechelinge*45)+($v_frigo*35)+($v_congelo*39)+($v_microonde*15).' kgCO2eq'; 
+    echo 'Consommation electromenage : '.($v_fours*17)+($v_plaquechauffante*31)+($v_lavevaisselle*47)+($v_lavelinge*49)+($v_sechelinge*45)+($v_frigo*35)+($v_congelo*39)+($v_microonde*15).' kgCO2eq'; 
 }
 ?>
 <html>
