@@ -69,20 +69,17 @@
     //calcul du total de l'empreinte carbone
 
     $totalCarbone = floatval($totalCA + $totalCAE + $totalCE + $totalCT);
-    echo ("Consommation totale : ".$totalCarbone." kgCO2eq<br/>\n");
-    echo ("Consommation transport : ".$totalCT." kgCO2eq<br/>\n");
-    echo ("Consommation electromenage : ".$totalCE." kgCO2eq<br/>\n");
-    echo ("Consommation appareil electrique : ".$totalCAE." kgCO2eq<br/>\n");
-    echo ("Consommation alimentaire : ".$totalCA." kgCO2eq<br/>\n");
-
-
 ?>
+
+
+
+
 
 <html>
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="profil.css"  />
-    <title>Authentification</title>
+    <title>Profil</title>
 </head>
 
 <body>
@@ -90,26 +87,26 @@
         <div class="titre">Profil</div>
         
         <div class="wrapper">
-        <div class="container">
-    <nav class="image-container"> <img src="nuag.png">
-        <div class="content">
-            <p></p>
-</nav>
+    <div class="card"> <img src="https://cdn.pixabay.com/photo/2018/04/18/18/56/user-3331257_960_720.png">
+        <h3><?php echo $_SESSION['nom']; echo " ".$_SESSION['prenom']; ?> </h3> <span>Metz 57000 <br> Etudiant : Université de Lorraine - IUT de Metz <br> </span>
+        <p> <?php echo "Consommation transport : ".round($totalCT, 3)." kgCO2eq<br>\n"; ?> </p>
+        <p> <?php echo "Consommation electromenage : ".round($totalCE, 3)." kgCO2eq<br>\n"; ?> </p>
+        <p> <?php echo "Consommation appareil electrique : ".round($totalCAE, 3)." kgCO2eq<br>\n"; ?> </p>
+        <p> <?php echo "Consommation alimentaire : ".round($totalCA, 3)." kgCO2eq<br>\n"; ?> </p>
+
+        <h2> <?php echo "Consommation totale : ".round($totalCarbone, 3)." kgCO2eq<br>\n"; ?> </h2>
+
+    </div>
+
 <!--
-<div class="trophee"> <img src="arbre.png">
-       <div class="content">
-           <p>Trophées</p>
-        
-</div>
-    </div>
-</div>
-
-</div>
-    </div>
-
-
-
-
- -->
- </body>
+<?php 
+if ( count($erreur) !== 0 ) {
+    foreach($erreur as $err) { 
+        ?>
+        <p class="erreur"> <?php echo $err ?> </p>;
+        <?php
+    }
+}
+?>-->
+</body>
 </html>
