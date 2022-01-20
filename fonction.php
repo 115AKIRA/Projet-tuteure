@@ -53,4 +53,45 @@ function setConsomAppareilElectrique($idcompte, $nbTele, $nbOrdiFixe, $nbOrdiPor
     $req = $objPdo->prepare('INSERT INTO ConsomAppareilElectrique(idcompte,dateCAE,nbTele,nbOrdiFixe,nbOrdiPort,nbImprimante,nbConsole,nbRouteur,nbAspirateur,nbTablette) VALUES(?,NOW(),?,?,?,?,?,?,?,?)');
     $req->execute(array($idcompte,$nbTele,$nbOrdiFixe,$nbOrdiPort,$nbImprimante,$nbConsole,$nbRouteur,$nbAspirateur,$nbTablette));
 }
+
+//fonction qui récupere toutes les informations relatives à la consommation transport d'un utilisateur
+function getConsomTransport($idcompte) {
+
+    require('connexion.php');
+    $req = $objPdo->prepare('SELECT * FROM ConsomTransport WHERE idcompte = ? ORDER BY dateCT DESC');
+    $req->execute(array($idcompte));
+    $data = $req->fetchAll(PDO::FETCH_OBJ);
+    return $data;
+
+}
+
+//fonction qui récupere toutes les informations relatives à la consommation electromenage d'un utilisateur
+function getConsomTransportElectromenage($idcompte)
+    require('connexion.php');
+    $req = $objPdo->prepare('SELECT * FROM ConsomElectromenage WHERE idcompte = ? ORDER BY dateCE DESC');
+    $req->execute(array($idcompte));
+    $data = $req->fetchAll(PDO::FETCH_OBJ);
+    return $data;
+
+}
+
+//fonction qui récupere toutes les informations relatives à la consommation appareil electrique d'un utilisateur
+function getConsomTransportAppareilElectrique($idcompte)
+    require('connexion.php');
+    $req = $objPdo->prepare('SELECT * FROM ConsomAppareilElectrique WHERE idcompte = ? ORDER BY dateCAE DESC');
+    $req->execute(array($idcompte));
+    $data = $req->fetchAll(PDO::FETCH_OBJ);
+    return $data;
+
+}
+
+//fonction qui récupere toutes les informations relatives à la consommation alimentaire d'un utilisateur
+function getConsomTransportElectromenage($idcompte)
+    require('connexion.php');
+    $req = $objPdo->prepare('SELECT * FROM ConsomAlimentaire WHERE idcompte = ? ORDER BY dateCA DESC');
+    $req->execute(array($idcompte));
+    $data = $req->fetchAll(PDO::FETCH_OBJ);
+    return $data;
+
+}
 ?>
