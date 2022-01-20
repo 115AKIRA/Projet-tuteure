@@ -3,8 +3,7 @@
 session_start();
  
 $_SESSION['url'] ='quiz.php';
-//$idcompte = $_SESSION['id']; 
-$idcompte = 1;
+$idcompte = $_SESSION['id']; 
 
 require('fonction.php');
 $typemoy = getTypeMoyens();
@@ -45,8 +44,9 @@ if (isset($_POST['btn_valider'])) {
     ?>
     <br>
     <?php 
-    echo 'Consommation transport par mois : '.floatval($v_distance)*floatval($carb)*floatval($v_nbTrajet)*floatval(4).' kgCO2eq';
+    echo 'Consommation transport par mois : '.floatval($v_distance)*floatval($carb[0]->empreinteCarboneParKm)*floatval($v_nbTrajet)*floatval(4).' kgCO2eq';
     $insert = setConsomTransport($idcompte, $v_distance, $v_nbTrajet, $v_typeTransport);
+    header("location: quiz2.php");
     }
 }
 ?>

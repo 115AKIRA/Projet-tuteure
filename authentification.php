@@ -50,10 +50,6 @@ if (isset($_POST['btn_retour'])) {
     header("location: acceuil.php");
 }
 */
-if(isset($_POST['btn_deconnexion'])){
-    session_destroy();
-    header("location: authentification.php");
-}
 ?>
 
 <html>
@@ -80,9 +76,6 @@ if(isset($_POST['btn_deconnexion'])){
             <input type="submit" name="btn_login" value="Connexion"/>
             </div>
             <br>
-            <div class="champ_saisie">
-            <input type="submit" name="btn_deconnexion" value="Deconnexion"/>
-            </div>
             <div class="signup-link">Vous n'avez pas de compte?<br> <a href="creer.php">Créer-en un !</a></div>
         </form>
     </div>

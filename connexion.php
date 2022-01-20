@@ -12,7 +12,7 @@
     try 
     { 
         $objPdo = new PDO ('mysql:host=devbdd.iutmetz.univ-lorraine.fr;port=3306;dbname=baggioko1u_tut;charset=utf8','baggioko1u_appli','32019084');
-        echo "connexion ok<br/>\n";
+        //echo "connexion ok<br/>\n";
     }
     catch( Exception $exception ) 
     {

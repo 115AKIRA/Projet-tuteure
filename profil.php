@@ -68,7 +68,12 @@
     
     //calcul du total de l'empreinte carbone
 
-    $totalCarbone = $totalCA + $totalCAE + $totalCE + $totalCT;
+    $totalCarbone = floatval($totalCA + $totalCAE + $totalCE + $totalCT);
+    echo ("Consommation totale : ".$totalCarbone." kgCO2eq<br/>\n");
+    echo ("Consommation transport : ".$totalCT." kgCO2eq<br/>\n");
+    echo ("Consommation electromenage : ".$totalCE." kgCO2eq<br/>\n");
+    echo ("Consommation appareil electrique : ".$totalCAE." kgCO2eq<br/>\n");
+    echo ("Consommation alimentaire : ".$totalCA." kgCO2eq<br/>\n");
 
 
 ?>

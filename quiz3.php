@@ -2,7 +2,9 @@
 
 session_start();
  
-$_SESSION['url'] ='quiz3.php';  
+$_SESSION['url'] ='quiz3.php'; 
+$idcompte = $_SESSION['id'];
+require('fonction.php'); 
 
 if (isset($_POST['btn_valider3'])) {
     $erreur = array();
@@ -47,6 +49,8 @@ if (isset($_POST['btn_valider3'])) {
     echo ' nbRouteur : ' . $v_nbRouteur . ' nbAspirateur : ' . $v_nbAspirateur . ' nbTablette : ' . $v_nbTablette;
     ?><br><?php
     echo 'Consommation appareil electrique : '.((($v_nbTele*54.1)+($v_nbOrdiPortable*43)+($v_nbTablette*23.2)+($v_nbPhone*19.7)+($v_nbImprimante*41.1)+($v_nbConsole*21.1)+($v_nbAspirateur*7.3)+($v_nbRouteur*2.2)+($v_nbOrdiFixe*34))/12).' kgCO2eq';
+    $insert = setConsomAppareilElectrique($idcompte,$v_nbTele,$v_nbOrdiFixe,$v_nbOrdiPortable,$v_nbImprimante,$v_nbConsole,$v_nbRouteur,$v_nbAspirateur,$v_nbTablette,$v_nbPhone);
+    header("location: quiz4.php"); 
 }
 ?>
 

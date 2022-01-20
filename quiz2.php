@@ -3,6 +3,8 @@
 session_start();
  
 $_SESSION['url'] ='quiz2.php';
+$idcompte = $_SESSION['id'];
+require('fonction.php');
 
 if (isset($_POST['btn_valider'])) {
     $erreur = array();
@@ -43,7 +45,9 @@ if (isset($_POST['btn_valider'])) {
     ?>
     <br>
     <?php
-    echo 'Consommation electromenage : '.(($v_fours*17)+($v_plaquechauffante*31)+($v_lavevaisselle*47)+($v_lavelinge*49)+($v_sechelinge*45)+($v_frigo*35)+($v_congelo*39)+($v_microonde*15)/12).' kgCO2eq'; 
+    echo 'Consommation electromenage : '.(($v_fours*17)+($v_plaquechauffante*31)+($v_lavevaisselle*47)+($v_lavelinge*49)+($v_sechelinge*45)+($v_frigo*35)+($v_congelo*39)+($v_microonde*15)/12).' kgCO2eq';
+    $insert = setConsomElectromenage($idcompte, $v_frigo, $v_congelo, $v_fours, $v_plaquechauffante, $v_sechelinge, $v_lavelinge, $v_lavevaisselle, $v_microonde);
+    header("location: quiz3.php"); 
 }
 ?>
 <html>

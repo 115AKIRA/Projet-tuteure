@@ -3,6 +3,8 @@
 session_start();
  
 $_SESSION['url'] ='quiz4.php';
+$idcompte = $_SESSION['id'];
+require('fonction.php');
 
 if (isset($_POST['btn_valider'])) {
     
@@ -11,6 +13,26 @@ if (isset($_POST['btn_valider'])) {
     } else {
         $boutonval = $_POST['radio'];
         echo 'Consommation alimentaire : '.($boutonval/12).' kgCO2eq';
+        $libelle;
+        switch($boutonval) {
+            case(213.613):
+                $libelle = "Jamais";
+                break;
+            case(600.251):
+                $libelle = "Moins d'1 fois par semaine";
+                break;
+            case(1028.4):
+                $libelle = "1 fois par semaine";
+                break;
+            case(1632):
+                $libelle = "2 fois par semaine";
+                break;
+            case(1888.335):
+                $totalCA = "Plus de 2 fois par semaine";
+        }
+
+        $insert = setConsomAlimentaire($idcompte, $libelle);
+        header("location: profil.php"); 
     }
 }
 ?>

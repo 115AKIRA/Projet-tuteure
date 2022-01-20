@@ -1,9 +1,12 @@
 
+        html {
+            font-family: 'Kristen ITC';
+          }
+
         /* Styling the Body element i.e. Color,
         Font, Alignment */
         body {
             background-color: cornflowerblue;
-            font-family: Verdana;
             text-align: center;
         }
  
