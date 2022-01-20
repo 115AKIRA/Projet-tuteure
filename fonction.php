@@ -66,7 +66,7 @@ function getConsomTransport($idcompte) {
 }
 
 //fonction qui récupere toutes les informations relatives à la consommation electromenage d'un utilisateur
-function getConsomTransportElectromenage($idcompte)
+function getConsomElectromenage($idcompte) {
     require('connexion.php');
     $req = $objPdo->prepare('SELECT * FROM ConsomElectromenage WHERE idcompte = ? ORDER BY dateCE DESC');
     $req->execute(array($idcompte));
@@ -76,7 +76,7 @@ function getConsomTransportElectromenage($idcompte)
 }
 
 //fonction qui récupere toutes les informations relatives à la consommation appareil electrique d'un utilisateur
-function getConsomTransportAppareilElectrique($idcompte)
+function getConsomAppareilElectrique($idcompte) {
     require('connexion.php');
     $req = $objPdo->prepare('SELECT * FROM ConsomAppareilElectrique WHERE idcompte = ? ORDER BY dateCAE DESC');
     $req->execute(array($idcompte));
@@ -86,7 +86,7 @@ function getConsomTransportAppareilElectrique($idcompte)
 }
 
 //fonction qui récupere toutes les informations relatives à la consommation alimentaire d'un utilisateur
-function getConsomTransportElectromenage($idcompte)
+function getConsomAlimentaire($idcompte) {
     require('connexion.php');
     $req = $objPdo->prepare('SELECT * FROM ConsomAlimentaire WHERE idcompte = ? ORDER BY dateCA DESC');
     $req->execute(array($idcompte));
